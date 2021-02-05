@@ -1,0 +1,8 @@
+"0","myHeight <- 178"
+"0","#if taller than 120, then attendee can go on the park ride"
+"0","canRide <- myHeight > 120"
+"0","canRide"
+"1","[1]"
+"1"," TRUE"
+"1","
+"

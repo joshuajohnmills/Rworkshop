@@ -1,0 +1,13 @@
+intro
+r-basics
+using-r-as-a-calculator
+saving-variables
+strings
+booleans
+vectors
+lists
+loops
+conditional-statements
+functions
+data-frames-and-manipulation
+plotting-in-ggplot2
