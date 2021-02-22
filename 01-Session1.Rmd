@@ -3,7 +3,7 @@
 ## Using R as a calculator
 
 
-R supports a  range of mathematical operators, most application in R will involve some numeric calculation. 
+R supports a  range of mathematical operators, most application in R will involve some numeric calculation. R can be used kind of like a fancy calculator. It supports a wide range of inbuilt functions that we can use to do basic calculations when required,including square root, exponential, factorial and many more. To get used to the R interface type a few basic calculations into the console. 
 ```{r}
 1+2
 ```
@@ -15,7 +15,7 @@ R supports a  range of mathematical operators, most application in R will involv
 
 ## Saving variables 
 
-To save a variable we use <- to assign a certain number a 
+To save a variable we use <- to assign a certain number a value. These are then stored until we restart out instance of R, clear our variable names or run out of memory. This means that we can use these variables at any time in this session. We can assign a variable almost any type of data from simple numbers as in these upcoming cases to entire spreadsheet like objects, and complicated functions. 
 
 Here we assign the radius of a circle to a value of 40.
 
@@ -25,7 +25,8 @@ radius <- 40
 
 
 We can use these saved values in later calculations. 
-In this example we can calculate the area of a circle with the raduis from before. 
+In this example we can calculate the area of a circle with the radius from before. 
+Practice saving some variables and using them for calculations. 
 
 ```{r}
 area <- radius*pi*2
@@ -38,11 +39,9 @@ Hello **world**!
 :::
 
 
-!!!Challenge : use the R command line to calculate the area of a rectangle that has side lengths 30 and 20
-
 
 ## Strings
-Strings store a collection of characters such as names, places or anything that cant be expressed by a number. Strings are declared by using either single or double quotation marks. 
+Strings store a collection of characters such as names, places or anything that cant be expressed by a number. Strings are declared by using either single or double quotation marks. We often use strings in dataframes to represent names or categories of some variable. We can save and use strings in much the same way as we use integers. The paste() function pastes strings together with a space inbetween, paste0() does so without a space. 
 
 ```{r}
 myName <- "Josh"
@@ -56,7 +55,7 @@ greeting
 
 ## Booleans
 
-Booleans store only true or false values. If a boolean is used to keep a true or false value. Booleans are also great for
+Booleans store only true or false values. If a boolean is used to keep a true or false value. 
 ```{r}
 myHeight <- 178
 #if taller than 120, then attendee can go on the park ride
@@ -69,10 +68,12 @@ canRide
 
 Vectors are used to save a collection of variables, they can be only used to save data of the same type.
 
-Create a vector using the c() function, this will store all varialbles in the same place, allowing us to refrence them as a single unit in R
+Create a vector using the c() function, this will store all variables in the same place, allowing us to reference them with a single variable in R
 ```{r}
 numbers = c(5,6,2,1,7)
 ```
+
+Acessing specific numbers from a vector is called indexing. In R we there are a few types of indexing that we can use. The first is 
 In order to take a number from a vector we must use indexing to obtain the item from the vector that is in that position
 Vectors are indexed with square brackets, starting with one. In
 
@@ -88,40 +89,88 @@ numbers[-3]
 ```
 
 
-Logical indexing means we can obtain true or false values for each 
-the follwing code 
+Logical indexing means we can obtain true or false values for each position in the vector
+The following code when run will tell us which element is greater or larger than 5
 ```{r}
 numbers>5
 
 ```
+## Tidy Data
 
+When dealing with dataframes in R we typically try and keep the data in a tidy format. There are essentially 3 rules for tidy data. 
 
-## Lists
+1. Each variable forms a column.
 
-Lists are very similar to vectors, but can store any type of data that is available. In a list we can keep strings, booleans, functions and even enire models and dataframes.
+2. Each observation forms a row.
 
-Indexing a list works much like indexing a vector, however we will return a list with that element in it. 
+3. Each type of observational unit forms a table.
+
+Data in tidy form is a lot easier to analyse, and the packages we are going to be using in the rest of the workshop are from a collection called the tidyverse. 
+(https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+
+## Installing packages
+
+For the next excersise we are going to be using the readr and dplyr packages. They provide many useful functions and data types that allow us to manipulate and read data. To install a package from CRAN use the following commands 
+
 ```{r}
+install.packages("dplyr")
+install.packages("readr")
+```
+
+## Data Frames
+
+In R a lot of the data we store is in Data frames. These are similar to using a single spreadsheet in excel, but R has many fantastic libraries that we can use to sort, select, summarize and produce graphics and machine learning results from data frames. 
+We will start by reading in a simple csv file that contains records of Melbourne's Housing prices. 
+
+We will first load 
+```{r}
+library(readr)
+library(dplyr)
+```
+Read in the data using the function Read_csv. 
+```{r}
+HousingData <- read_csv("MelbourneHousingData.csv")
+```
+
+In order to view a data frame in Rstudio we can use the View() function. Do not use this function if you are going to work on 
+```{r}
+View(HousingData)
 
 ```
-In order to in
-```{r}
 
+## The Magrittr pipe
+
+The Magrittr pipe is an operator in R that allows us to do multiple functions in one. It takes the previous variable and puts it into the first argument in the next function. For example
+```{r}
+16 %>% log(2) %>% sum(3,2) %>% sqrt()
+#takes the log of 16 and adds  it to 3 and 2, then takes the square root it is the same as the next line 
 ```
 
+```{r}
+sqrt(sum(log(16,2),3,2))
+```
 
+but a lot easier to organise. 
+After 
     try storing some lists in a dataframe 
 ## Loops*
 
 Optional cover if we have time
 
 ```{r}
-
+myList = list("josh",1,T,c(3,3),matrix(c(4,2,4,1),nrow =2))
+              
+for(i in seq(5)){
+  print(i + 1)
+}
 ```
 
 ## Conditional Statements* 
 ```{r}
-
+myNumber = 5
+if(myNumber > 5){
+  
+}
 ```
 
 
@@ -129,6 +178,12 @@ Optional cover if we have time
 ## Functions*
 
 ```{r}
-
+spinner <- function(myPoints,degree){
+  degree = degree*pi/180
+  rotationMatrix =  matrix(c(sin(degree),sin(degree),-cos(degree),cos(degree)),
+                           ncol =2)
+  return(rotationMatrix%*%myPoints)
+}
+spinner(matrix(c(2,1),ncol=1),30)
 ```
 

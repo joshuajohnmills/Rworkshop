@@ -10,6 +10,11 @@ library(ggplot2)
 
 ## Reading in Data
  
+```{r}
+read_csv()
+```
+ 
 
 
 ## Indexing DataFrames
+ 
